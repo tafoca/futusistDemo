@@ -7,6 +7,7 @@ import javax.persistence.*;
 public class Personnel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+
     private Integer id;
 
     private  String name;
@@ -20,6 +21,14 @@ public class Personnel {
         this.salary = salary;
         this.departement = departement;
     }
+
+    public Personnel(Integer id, String name, Integer salary, String departement) {
+        this.id = id;
+        this.name = name;
+        this.salary = salary;
+        this.departement = departement;
+    }
+
 
     public Personnel() {
     }
@@ -48,4 +57,11 @@ public class Personnel {
         this.departement = departement;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

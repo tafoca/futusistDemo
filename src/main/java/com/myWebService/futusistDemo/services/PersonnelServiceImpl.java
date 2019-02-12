@@ -34,5 +34,15 @@ public class PersonnelServiceImpl implements PersonnelService {
         return "echec";
     }
 
+    @Override
+    public Personnel findById(String id) {
+        return personnelrepository.getOne(Integer.parseInt(id));
+    }
+
+    @Override
+    public Personnel findById(Integer id) {
+        return personnelrepository.getOne(id);
+    }
+
 
 }

@@ -10,4 +10,9 @@ public interface PersonnelService {
     // save and personel
     Personnel savePersonnel(Personnel personnel);
     String savePersonnelDetail(Personnel personnel);
+
+    Personnel findById(String id);
+    Personnel findById(Integer id);
+
+
 }
