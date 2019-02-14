@@ -32,4 +32,9 @@ public class FonctionServiceImpl implements FonctionService {
     public String saveFunctionState(Fonction function) {
        if (saveFunction(function) != null ) return "success"; else return "echec";
     }
+
+    @Override
+    public Fonction findBYId(Integer id) {
+        return fonctionRepository.getOne(id);
+    }
 }

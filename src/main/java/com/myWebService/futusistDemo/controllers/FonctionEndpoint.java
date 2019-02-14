@@ -5,21 +5,19 @@ import com.myWebService.futusistDemo.models.Personnel;
 import com.myWebService.futusistDemo.services.FonctionService;
 import com.myWebService.futusistDemo.services.PersonnelService;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @RestController
 @EnableAutoConfiguration
-public class FonctionEndpoint {
+class FonctionEndpoint {
 
     @Autowired
     private FonctionService fonctionService;
@@ -28,15 +26,18 @@ public class FonctionEndpoint {
     private PersonnelService personnelService;
 
     @RequestMapping(value = "/add-fonction",method = RequestMethod.POST)
-    public String saveFonction(@RequestBody JSONObject fonction){
+    public String saveFonction(@RequestBody JSONObject fonction) throws ParseException {
 
         System.out.println(fonction.toJSONString());
 
         //construction du personnel
         String  pers = fonction.get("personnel").toString();
+
         Integer id= Integer.parseInt(pers);
 
         Personnel p = personnelService.findById(id);
+
+         Object o = new JSONParser().parse(fonction.toJSONString());
 
         Fonction Fonction1 = new Fonction(fonction.get("functionName").toString(),fonction.get("dateDebut").toString(),p);
 
@@ -50,4 +51,16 @@ public class FonctionEndpoint {
         return new ResponseEntity<List<Fonction>>(Fonctions, HttpStatus.OK);
 
     }
+
+    @RequestMapping(value = "/fonctions/show/{id}",method = RequestMethod.GET)
+    public ResponseEntity<Fonction> getFonction(@PathVariable Integer id){
+
+        Fonction fonction = fonctionService.findBYId(id);
+
+        System.out.println("--------------------------"+ fonction.toString()+"--------------------------");
+
+        return new ResponseEntity<Fonction>(fonction, HttpStatus.OK);
+
+    }
+
 }

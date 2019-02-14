@@ -1,16 +1,16 @@
 package com.myWebService.futusistDemo.controllers;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.myWebService.futusistDemo.models.Fonction;
 import com.myWebService.futusistDemo.models.Personnel;
+import com.myWebService.futusistDemo.models.Scope;
 import com.myWebService.futusistDemo.services.PersonnelService;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -38,5 +38,18 @@ public class PersonnelEndpoint {
     public ResponseEntity<List<Personnel>> getAllPersonnel(){
         List<Personnel> personnels = personnelService.getAllPersonnelList();
         return new ResponseEntity<List<Personnel>>(personnels, HttpStatus.OK);
+    }
+
+    @JsonView(Scope.FirstLevel.class)
+    @RequestMapping(value = "/personnels/show/{id}",method = RequestMethod.GET)
+    public ResponseEntity<Personnel> getPersonel(@PathVariable Integer id){
+
+        Personnel personnel = personnelService.findById(id);
+
+        System.out.println("----->->>"+id);
+        System.out.println("----->>>"+personnel.toString());
+
+        return new ResponseEntity<Personnel>(personnel, HttpStatus.OK);
+
     }
 }

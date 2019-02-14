@@ -1,20 +1,33 @@
 package com.myWebService.futusistDemo.models;
 
-import javax.persistence.*;
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
 
+import javax.persistence.*;
+
+
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class Fonction {
+
+    @JsonView(Scope.FirstLevel.class)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
+    @JsonView(Scope.FirstLevel.class)
     String functionName;
 
+    @JsonView(Scope.FirstLevel.class)
     String dateDebut;
 
+    @JsonView(Scope.FirstLevel.class)
     @OneToOne
     Personnel personnel;
+
+
+    public Fonction() {
+    }
 
     public Fonction(String functionName, String dateDebut) {
         this.functionName = functionName;
@@ -59,5 +72,15 @@ public class Fonction {
 
     public void setPersonnel(Personnel personnel) {
         this.personnel = personnel;
+    }
+
+    @Override
+    public String toString() {
+        return "Fonction{" +
+                "id=" + id +
+                ", functionName='" + functionName + '\'' +
+                ", dateDebut='" + dateDebut + '\'' +
+                ", personnel=" + personnel.toString() +
+                '}';
     }
 }

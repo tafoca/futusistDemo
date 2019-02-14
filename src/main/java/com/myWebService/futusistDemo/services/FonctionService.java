@@ -13,4 +13,5 @@ public interface FonctionService {
 
     String saveFunctionState(Fonction function);
 
+    Fonction findBYId(Integer id);
 }
