@@ -80,7 +80,7 @@ public class Fonction {
                 "id=" + id +
                 ", functionName='" + functionName + '\'' +
                 ", dateDebut='" + dateDebut + '\'' +
-                ", personnel=" + personnel.toString() +
+                //", personnel=" + personnel.toString() +
                 '}';
     }
 }

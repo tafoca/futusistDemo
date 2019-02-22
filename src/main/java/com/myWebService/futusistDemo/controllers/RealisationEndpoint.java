@@ -37,18 +37,24 @@ public class RealisationEndpoint {
 
         System.out.println(realisation.toJSONString());
 
-        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create() ;
+        //Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create() ;
+        
+        Gson gson = new Gson();
         Realisation realisation1 = gson.fromJson(realisation.toJSONString(), Realisation.class);
+
         System.out.println("realisation : ----->>>>>>>>>>"+ realisation1.toString() + ">><<<<<<<<<<<<<<<<<<<<<<<--------------");
+        System.out.println("fct  : ----->>>>>>>>>>"+ realisation1.getFunction().toString() + ">><<<<<<<<<<<<<<<<<<<<<<<--------------");
+        if (realisation1.getFunction().getPersonnel() != null)
+            System.out.println("pers   : ----->>>>>>>>>>"+ realisation1.getFunction().getPersonnel().toString() + ">><<<<<<<<<<<<<<<<<<<<<<<--------------");
 
         //construction de la fonction
-        String  pers = realisation.get("function").toString();
+       /// String  pers = realisation.get("function").toString();
 
-        System.out.println("---"+pers+ "---");
+       // System.out.println("---"+pers+ "---");
 
-        Integer id= Integer.parseInt(pers);
+        //Integer id= Integer.parseInt(pers);
 
-        Fonction f = fonctionService.findBYId(id);
+     /*   Fonction f = fonctionService.findBYId(id);
         System.out.println(f.toString());
 
         Object o = new JSONParser().parse(realisation.toJSONString());
@@ -58,9 +64,9 @@ public class RealisationEndpoint {
                 realisation.get("beginRealisation").toString() ,
                 realisation.get("endRealisation").toString());
         r.setDescription(realisation.get("description").toString());
-        r.setFunction(f);
+        r.setFunction(f);*/
 
-        String ret =  realisationService.saveRealisationState(r);
+        String ret =  realisationService.saveRealisationState(realisation1);
         System.out.println("------"+ret);
         return ret;
     }

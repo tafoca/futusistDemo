@@ -9,29 +9,29 @@ import javax.persistence.*;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class Realisation {
-    @Expose (serialize = true, deserialize = true)
+    //@Expose (serialize = true, deserialize = true)
     @JsonView(Scope.FirstLevel.class)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
-    @Expose (serialize = true, deserialize = true)
+   // @Expose (serialize = true, deserialize = true)
     @JsonView(Scope.FirstLevel.class)
     String realisationName;
 
-    @Expose (serialize = true, deserialize = true)
+   // @Expose (serialize = true, deserialize = true)
     @JsonView(Scope.FirstLevel.class)
     String description;
 
-    @Expose (serialize = true, deserialize = true)
+    //@Expose (serialize = true, deserialize = true)
     @JsonView(Scope.FirstLevel.class)
     private String beginRealisation;
 
-    @Expose (serialize = true, deserialize = true)
+    //@Expose (serialize = true, deserialize = true)
     @JsonView(Scope.FirstLevel.class)
     private String endRealisation;
 
-    @Expose(deserialize = false)
+   // @Expose(deserialize = false)
     @JsonView(Scope.FirstLevel.class)
     @ManyToOne(targetEntity = Fonction.class)
     private Fonction function;
@@ -104,7 +104,7 @@ public class Realisation {
                 ", description='" + description + '\'' +
                 ", beginRealisation=" + beginRealisation +
                 ", endRealisation=" + endRealisation +
-                ", function=" + function +
+                //", function=" + function +
                 '}';
 
     }
