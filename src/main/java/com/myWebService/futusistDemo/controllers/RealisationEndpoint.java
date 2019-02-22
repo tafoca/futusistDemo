@@ -1,6 +1,9 @@
 package com.myWebService.futusistDemo.controllers;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.myWebService.futusistDemo.models.Fonction;
+import com.myWebService.futusistDemo.models.Personnel;
 import com.myWebService.futusistDemo.models.Realisation;
 import com.myWebService.futusistDemo.services.FonctionService;
 import com.myWebService.futusistDemo.services.PersonnelService;
@@ -33,6 +36,10 @@ public class RealisationEndpoint {
     public String saveRealisation(@RequestBody JSONObject realisation) throws ParseException {
 
         System.out.println(realisation.toJSONString());
+
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create() ;
+        Realisation realisation1 = gson.fromJson(realisation.toJSONString(), Realisation.class);
+        System.out.println("realisation : ----->>>>>>>>>>"+ realisation1.toString() + ">><<<<<<<<<<<<<<<<<<<<<<<--------------");
 
         //construction de la fonction
         String  pers = realisation.get("function").toString();

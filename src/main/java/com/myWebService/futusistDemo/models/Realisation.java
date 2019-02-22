@@ -2,30 +2,36 @@ package com.myWebService.futusistDemo.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.google.gson.annotations.Expose;
 
 import javax.persistence.*;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class Realisation {
-
+    @Expose (serialize = true, deserialize = true)
     @JsonView(Scope.FirstLevel.class)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
+    @Expose (serialize = true, deserialize = true)
     @JsonView(Scope.FirstLevel.class)
     String realisationName;
 
+    @Expose (serialize = true, deserialize = true)
     @JsonView(Scope.FirstLevel.class)
     String description;
 
+    @Expose (serialize = true, deserialize = true)
     @JsonView(Scope.FirstLevel.class)
     private String beginRealisation;
 
+    @Expose (serialize = true, deserialize = true)
     @JsonView(Scope.FirstLevel.class)
     private String endRealisation;
 
+    @Expose(deserialize = false)
     @JsonView(Scope.FirstLevel.class)
     @ManyToOne(targetEntity = Fonction.class)
     private Fonction function;

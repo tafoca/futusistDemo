@@ -1,6 +1,7 @@
 package com.myWebService.futusistDemo.controllers;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.google.gson.Gson;
 import com.myWebService.futusistDemo.models.Fonction;
 import com.myWebService.futusistDemo.models.Personnel;
 import com.myWebService.futusistDemo.models.Scope;
@@ -26,12 +27,18 @@ public class PersonnelEndpoint {
 
         System.out.println(personnel.toJSONString());
 
-        Personnel personnel1 = new Personnel(personnel.get("name").toString(),
+
+        Gson gson =new Gson();
+        Personnel userIdentifier = gson.fromJson(personnel.toJSONString().toString(), Personnel.class);
+        System.out.println("----->>>>>>>>>>"+ userIdentifier.toString() + ">><<<<<<<<<<<<<<<<<<<<<<<--------------");
+
+
+        /*Personnel personnel1 = new Personnel(personnel.get("name").toString(),
                 Integer.parseInt(personnel.get("salary").toString()),
-                personnel.get("departement").toString());
+                personnel.get("departement").toString());*/
 
         //return new ResponseEntity<Personnel>(personnel1, HttpStatus.CREATED);
-        return  personnelService.savePersonnelDetail(personnel1);
+        return  personnelService.savePersonnelDetail(userIdentifier);
     }
 
     @RequestMapping(value = "/all-personnels",method = RequestMethod.GET)
